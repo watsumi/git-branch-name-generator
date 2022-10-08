@@ -25,35 +25,82 @@ a:hover {
 }
 
 body {
-  margin: 0;
   display: flex;
-  place-items: center;
+  margin: 0;
+  padding: 8px;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 120px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.current-title,
+.generated-title {
+  max-width: 240px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+label {
+  margin-right: auto;
+  font-size: 16px;
+  line-height: 32px;
+  font-weight: 400;
+}
+
+select {
+  border: 0 solid #e5e7eb;
+  margin: 0;
+  width: 100%;
+  border-radius: .5rem;
+  border-width: 1px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+input {
+  border: 0 solid #e5e7eb;
+  margin: 0;
+  width: 90%;
+  border-radius: .5rem;
+  border-width: 1px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+div.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  margin: 8px;
+  padding: 8px;
+  font-size: 16px;
   font-weight: 500;
   font-family: inherit;
+  width: 100%;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+button.generate-button:hover {
+  color: #fafafa;
   border-color: #646cff;
+  background-color: #646cff;
+}
+button.copy-button:hover {
+  border-color: #ffcb64;
+  background-color: #ffcb64;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.px-6 {
+  padding: 0 6px;
 }
 
 @media (prefers-color-scheme: light) {

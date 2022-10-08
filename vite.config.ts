@@ -13,7 +13,12 @@ const manifest = defineManifest({
     '48': 'icon.png',
     '128': 'icon.png',
   },
-  permissions: ["activeTab"],
+  permissions: [
+    "tabs"
+  ],
+  host_permissions: [
+    "https://developer.chrome.com/*"
+  ],
   action: {
     default_popup: 'index.html',
   },
