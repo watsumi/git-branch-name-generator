@@ -78,8 +78,12 @@ const formatTitle = (title: string, style: string): string => {
 const formatedTitle = (title: string, style: string): string => {
   return title
     .replaceAll(/['.,?/\\@~^:;&%$*()\s]/g, style)
+    .replaceAll('[', style)
+    .replaceAll(']', style)
     .replaceAll(/-+/g, style)
+    .replaceAll(/_+/g, style)
     .replaceAll(/^-/g, '')
+    .replaceAll(/^_/g, '')
 }
 
 const generateBranchName = (prefix: string, issueNum: string, branchName: string, style: string): string => {
