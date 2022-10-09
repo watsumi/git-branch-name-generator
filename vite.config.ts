@@ -4,7 +4,7 @@ import { crx, defineManifest } from '@crxjs/vite-plugin';
 
 const manifest = defineManifest({
   manifest_version: 3,
-  name: 'git-branch-name-generator',
+  name: 'git branch name generator',
   description:
     'An extension that generate git branch name from the GitHub issue page.',
   version: '1.0.0',
@@ -15,9 +15,6 @@ const manifest = defineManifest({
   },
   permissions: [
     "tabs"
-  ],
-  host_permissions: [
-    "https://developer.chrome.com/*"
   ],
   action: {
     default_popup: 'index.html',

@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from 'react'
 
-export const CopyButtonView = ({ onClick, isCopied = false }) => {
+export const CopyButtonView = ({ onClick, isCopied = false }: { onClick: any; isCopied: boolean }) => {
   return (
     <button type="button" className="copy-button" onClick={onClick}>
       {isCopied ? 'Copied 🎉' : 'Copy'}
@@ -8,7 +8,7 @@ export const CopyButtonView = ({ onClick, isCopied = false }) => {
   )
 }
 
-export const CopyButton = ({ onClick: onClickProp }) => {
+export const CopyButton = ({ onClick: onClickProp }: { onClick: any }) => {
   const [isCopied, setCopied] = useState(false)
 
   const onClick = useCallback(() => {
