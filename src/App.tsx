@@ -34,6 +34,23 @@ const styles = [
     value: '-'
   }
 ]
+const separators = [
+  {
+    id: 1,
+    title: 'Solidus(/)',
+    value: '/'
+  },
+  {
+    id: 2,
+    title: 'Vertical Line(|)',
+    value: '|'
+  },
+  {
+    id: 3,
+    title: 'Hyphen-Minus(-)',
+    value: '-'
+  }
+]
 
 const getTranslatedTitle = (title: string, lang: string) => {
   return axios.get<FormData>(`${translateAPI}?text=${title}&source=${lang}&target=en`)
@@ -84,15 +101,17 @@ const formatedTitle = (title: string, style: string): string => {
     .replaceAll(/_+/g, style)
     .replaceAll(/^-/g, '')
     .replaceAll(/^_/g, '')
+    .replaceAll(/-$/g, '')
+    .replaceAll(/_$/g, '')
 }
 
-const generateBranchName = (prefix: string, issueNum: string, branchName: string, style: string): string => {
+const generateBranchName = (prefix: string, issueNum: string, branchName: string, style: string, separator: string): string => {
   try {
     const downCasedTitle = formatedTitle(branchName, style).toLowerCase()
     if (prefix && issueNum) {
-      return `${prefix}/#${issueNum}${style}${downCasedTitle}`
+      return `${prefix}${separator}#${issueNum}${style}${downCasedTitle}`
     } else if (prefix) {
-      return `${prefix}/${downCasedTitle}`
+      return `${prefix}${separator}${downCasedTitle}`
     } else if (issueNum) {
       return `${issueNum}${style}${downCasedTitle}`
     } else {
@@ -107,12 +126,13 @@ const generateBranchName = (prefix: string, issueNum: string, branchName: string
 }
 
 function App() {
-  const [prefix, setPrefix] = useState('')
+  const [prefix, setPrefix] = useState('issue')
   const [issueNum, setIssueNum] = useState('')
   const [title, setTitle] = useState('')
   const [branchName, setBranchName] = useState('')
   const [lang, setLang] = useState('en')
   const [style, setStyle] = useState('_')
+  const [separator, setSeparator] = useState('/')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -151,19 +171,6 @@ function App() {
       <div className="App">
         <div className="container">
           <div className="row">
-            <h3 className="current-title">{title}</h3>
-          </div>
-          <div className="row">
-            <label>Translate from</label>
-            <select onChange={(event) => setLang(event.target.value)}>
-              {languages.map((language) => (
-                <option key={language.id} value={language.value}>
-                  {language.title}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="row">
             <label className="px-6">Issue#</label>
             <input value={issueNum} onChange={(event) => setIssueNum(event.target.value)} type="text" />
           </div>
@@ -182,15 +189,37 @@ function App() {
             </select>
           </div>
           <div className="row">
+            <label>Separator</label>
+            <select onChange={(event) => setSeparator(event.target.value)}>
+              {separators.map((separator) => (
+                <option key={separator.id} value={separator.value}>
+                  {separator.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="row">
+            <label>Translate from</label>
+            <select onChange={(event) => setLang(event.target.value)}>
+              {languages.map((language) => (
+                <option key={language.id} value={language.value}>
+                  {language.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="row">
             <button
               className="generate-button"
-              onClick={() => setBranchName(generateBranchName(prefix, issueNum, title, style))}
+              onClick={() => setBranchName(generateBranchName(prefix, issueNum, title, style, separator))}
             >
               Generate
             </button>
           </div>
-          <div className="row">
+          <div className="generated-area">
             <h3 className="generated-title">{branchName ? branchName : 'Loading...'}</h3>
+          </div>
+          <div className="row">
             <CopyButton onClick={onCopyClick} />
           </div>
         </div>

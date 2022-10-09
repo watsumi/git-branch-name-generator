@@ -34,9 +34,17 @@ body {
 
 .current-title,
 .generated-title {
-  max-width: 240px;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  padding: 8px;
+  word-break: keep-all;
+  overflow: normal;
+}
+
+.generated-area {
+  border-radius: .5rem;
+  border: 2px solid #e5e7eb;
+  background-color: #fafafa;
+  max-width: 200px;
+  overflow-x: scroll;
 }
 
 label {
