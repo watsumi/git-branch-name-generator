@@ -7,7 +7,7 @@ const manifest = defineManifest({
   name: 'git branch name generator',
   description:
     'An extension that generate git branch name from the GitHub issue page.',
-  version: '1.0.1',
+  version: '1.0.2',
   icons: {
     '16': 'icon.png',
     '48': 'icon.png',
